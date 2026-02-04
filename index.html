@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Demo-Repository für ZipShip: ZIP hochladen → GitHub Repo → Deploy bei Vercel/Netlify. Zero Config. In 30 Sekunden." />
+  <meta name="theme-color" content="#0b0f19" />
+  <title>ZIP-SHIP Revolution — Demo Deploy</title>
+
+  <link rel="preload" href="./styles.css" as="style" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230b0f19' d='M0 0h64v64H0z'/%3E%3Cpath fill='%23fff' d='M15 18h34v6H15zm0 11h34v6H15zm0 11h23v6H15z'/%3E%3Ccircle cx='50' cy='43' r='6' fill='%236ee7ff'/%3E%3C/svg%3E" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">⬡</span>
+        <span class="brand__name">ZIP‑SHIP</span>
+        <span class="brand__tag">Revolution Demo</span>
+      </div>
+
+      <nav class="nav">
+        <a href="#so-funktionierts">So funktioniert's</a>
+        <a href="#vercel-netlify">Vercel/Netlify</a>
+        <a href="#repo">Repo</a>
+        <button class="btn btn--ghost" id="themeToggle" type="button" aria-label="Theme wechseln">
+          <span class="btn__icon" aria-hidden="true">☾</span>
+          <span class="btn__text">Theme</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="badge">Zero‑Config • Static Site • ZIP‑Upload</p>
+          <h1>Upload die ZIP. <span class="grad">ZipShip</span> macht den Rest.</h1>
+          <p class="lead">
+            Diese Seite ist eine absichtlich simple Demo, um deinen Pipeline‑Test zu machen:
+            <strong>ZIP → GitHub Repo → Deploy</strong> (Vercel oder Netlify).
+          </p>
+
+          <div class="hero__cta">
+            <button class="btn btn--primary" id="runDemo" type="button">Demo‑Deploy starten</button>
+            <a class="btn btn--soft" href="#repo">Repo‑Struktur ansehen</a>
+          </div>
+
+          <div class="mini">
+            <div class="mini__item">
+              <div class="mini__k">Build‑Tooling</div>
+              <div class="mini__v">keins (nur HTML/CSS/JS)</div>
+            </div>
+            <div class="mini__item">
+              <div class="mini__k">Deploy‑Ziel</div>
+              <div class="mini__v">Vercel / Netlify</div>
+            </div>
+            <div class="mini__item">
+              <div class="mini__k">Zeitgefühl</div>
+              <div class="mini__v">~30 Sekunden (wenn das Internet brav ist)</div>
+            </div>
+          </div>
+
+          <div class="notice" role="note">
+            <strong>Warum statisch?</strong> Damit du testest, ob ZipShip die ZIP korrekt ins Repo gießt und die Hosting‑Plattform
+            den Inhalt ohne Build‑Spezialfälle ausliefert.
+          </div>
+        </div>
+
+        <div class="hero__panel">
+          <div class="panel">
+            <div class="panel__head">
+              <div class="dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="panel__title">Deploy‑Konsole (Fake, aber hübsch)</div>
+            </div>
+
+            <div class="panel__body">
+              <pre class="terminal" id="terminal" aria-live="polite">
+$ zipship upload zip-ship-revolution.zip
+✔ unpacking…
+✔ creating github repo…
+✔ pushing commit…
+✔ detected: static site
+→ ready to deploy: vercel / netlify
+              </pre>
+
+              <div class="progress" aria-label="Fortschritt">
+                <div class="progress__bar" id="progressBar" style="width: 12%"></div>
+              </div>
+
+              <div class="panel__actions">
+                <button class="btn btn--ghost btn--sm" id="copyUrl" type="button">Fake‑Deploy‑URL kopieren</button>
+                <button class="btn btn--ghost btn--sm" id="resetDemo" type="button">Reset</button>
+              </div>
+
+              <p class="muted">
+                Keine Sorge: Das ist nur Frontend‑Theater. Dein echter Test ist: ZIP hochladen → ZipShip repo → deploy.
+              </p>
+            </div>
+          </div>
+
+          <div class="card small">
+            <h3>Was du hier siehst</h3>
+            <ul>
+              <li>Eine einzelne Landingpage</li>
+              <li>Kein NPM, keine Builds, kein Stress</li>
+              <li>Netlify/Vercel‑Config optional dabei</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="hero__glow" aria-hidden="true"></div>
+    </section>
+
+    <section id="so-funktionierts" class="section">
+      <div class="container">
+        <h2>So funktioniert dein Test</h2>
+        <p class="section__lead">Du willst prüfen, ob <strong>ZIP → Repo → Hosting</strong> sauber durchläuft. Das ist die ganze Magie.</p>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step__num">1</div>
+            <h3>ZIP hochladen</h3>
+            <p>Diese ZIP enthält die Repo‑Wurzel (kein extra Unterordner) und eine einfache statische Site.</p>
+          </div>
+          <div class="step">
+            <div class="step__num">2</div>
+            <h3>ZipShip erzeugt Repo</h3>
+            <p>Automatisch GitHub‑Repo anlegen, Inhalte pushen, optional Default‑Branch setzen. (Je nach ZipShip‑Setup.)</p>
+          </div>
+          <div class="step">
+            <div class="step__num">3</div>
+            <h3>Deploy anschauen</h3>
+            <p>Vercel oder Netlify erkennt’s als Static‑Site und serviert direkt. Keine Build‑Kommandos nötig.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Quick‑Checks</h3>
+          <div class="grid2">
+            <div>
+              <p><strong>Repo‑Root?</strong> Im ZIP liegt <code>index.html</code> direkt auf Root‑Ebene.</p>
+              <p><strong>Assets?</strong> <code>styles.css</code> &amp; <code>script.js</code> liegen ebenfalls auf Root.</p>
+            </div>
+            <div>
+              <p><strong>Netlify‑Hint:</strong> <code>netlify.toml</code> setzt Publish auf <code>.</code>.</p>
+              <p><strong>Vercel‑Hint:</strong> <code>vercel.json</code> setzt saubere URLs &amp; Cache‑Header.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="vercel-netlify" class="section section--alt">
+      <div class="container">
+        <h2>Vercel &amp; Netlify: Was sollte passieren?</h2>
+
+        <div class="grid2">
+          <div class="card">
+            <h3>Vercel</h3>
+            <p>Vercel kann statische Projekte direkt aus dem Repo ausliefern. Bei Static‑Sites ist es meist „Import Repo → Deploy“.</p>
+            <div class="codebox">
+              <button class="copy" data-copy="Vercel: Neues Projekt → Repo auswählen → Framework: Other → Deploy">Kopieren</button>
+              <pre><code>Vercel: Neues Projekt → Repo auswählen → Framework: Other → Deploy</code></pre>
+            </div>
+            <p class="muted">Wenn Vercel meckert, liegt’s fast immer an einer unerwarteten Ordnerstruktur oder einer falschen Publish‑Directory.</p>
+          </div>
+
+          <div class="card">
+            <h3>Netlify</h3>
+            <p>Netlify ist bei Static‑Sites ebenfalls entspannt. <code>netlify.toml</code> sagt: kein Build, Publish ist Root.</p>
+            <div class="codebox">
+              <button class="copy" data-copy="[build]
+  publish = "."
+  command = """>Kopieren</button>
+              <pre><code>[build]
+  publish = "."
+  command = ""</code></pre>
+            </div>
+            <p class="muted">Wenn du später ein Framework nutzt, packst du hier Build‑Command und Publish‑Ordner rein.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="repo" class="section">
+      <div class="container">
+        <h2>Repo‑Struktur (in dieser ZIP)</h2>
+
+        <div class="card">
+          <div class="codebox">
+            <button class="copy" data-copy="index.html
+styles.css
+script.js
+netlify.toml
+vercel.json
+robots.txt
+sitemap.xml
+README.md">Kopieren</button>
+            <pre><code>index.html
+styles.css
+script.js
+netlify.toml
+vercel.json
+robots.txt
+sitemap.xml
+README.md</code></pre>
+          </div>
+
+          <p class="muted">
+            Hinweis: Für den Pipeline‑Test ist das bewusst „dumm‑stabil“ gehalten. Wenn ZipShip das hier nicht deployed,
+            ist etwas grundsätzlich faul – und das ist genau das, was du herausfinden willst.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Mini‑FAQ</h3>
+          <details>
+            <summary>Warum kein Next.js / Vite / NPM?</summary>
+            <p>Weil du zuerst die Kette <em>ZIP → Repo → Hosting</em> testen willst. Builds sind der Ort, wo Chaos wohnt.</p>
+          </details>
+          <details>
+            <summary>Kann ich daraus später ein echtes Projekt machen?</summary>
+            <p>Klar. Ersetze die Static‑Files durch dein Framework‑Projekt – und passe Netlify/Vercel‑Config an.</p>
+          </details>
+          <details>
+            <summary>Warum gibt es vercel.json und netlify.toml überhaupt?</summary>
+            <p>Sie sind optionale „Hints“, damit die Plattformen nicht kreativ werden. Kreativität ist beim Deploy selten hilfreich.</p>
+          </details>
+        </div>
+
+        <footer class="footer">
+          <div class="footer__inner">
+            <div>
+              <strong>ZIP‑SHIP Revolution Demo</strong><br />
+              <span class="muted">Ein kleines Stück deterministische Realität in einer Welt voller Build‑Tools.</span>
+            </div>
+            <div class="muted">© <span id="year"></span> • Static • No dependencies</div>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script src="./script.js"></script>
+</body>
+</html>
